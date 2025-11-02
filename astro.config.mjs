@@ -9,7 +9,7 @@ import netlify from '@astrojs/netlify';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://githopes.github.io',
-  base: "/githopes.github.io/",
+  base: "/",
   output: 'static',
   vite: {
     plugins: [tailwindcss()]
