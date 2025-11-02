@@ -5,6 +5,23 @@ on:
     branches: [main]
 
 jobs:
+  build:
+      # Specify runner +  build & upload the static files as an artifact
+      runs-on: ubuntu-latest
+      steps:
+        - name: Build static files
+          id: build
+          run: |
+            # <Not provided for brevity>
+            # At a minimum this step should build the static files of your site
+            # <Not provided for brevity>
+
+        - name: Upload static files as artifact
+          id: deployment
+          uses: actions/upload-pages-artifact@v4 # or specific "vX.X.X" version tag for this action
+          with:
+            path: build_outputs_folder/
+
   deploy:
     runs-on: ubuntu-latest
     permissions:
@@ -14,7 +31,6 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v4
       - uses: actions/deploy-pages@v4
 
       - uses: withastro/action@v4
