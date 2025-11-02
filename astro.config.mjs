@@ -3,13 +3,13 @@ import { defineConfig, fontProviders } from 'astro/config';
 
 import tailwindcss from '@tailwindcss/vite';
 import react from '@astrojs/react';
-
-import vercel from "@astrojs/vercel";
+import netlify from '@astrojs/netlify';
+// import vercel from "@astrojs/vercel";
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://githopes.github.io',
-  output: 'server',
+  output: 'static',
   vite: {
     plugins: [tailwindcss()]
   },
@@ -24,6 +24,6 @@ export default defineConfig({
       fallbacks: ["Inter", "sans-serif"],
     }]
   },
-
-  adapter: vercel()
+  adapter: netlify()
+//  adapter: vercel()
 });
