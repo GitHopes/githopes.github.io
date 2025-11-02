@@ -12,6 +12,7 @@ jobs:
       id-token: write   # to verify the deployment originates from an appropriate source
 
     steps:
+      - uses: actions/checkout@v5
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
       - uses: actions/deploy-pages@v4
