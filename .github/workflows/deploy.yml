@@ -4,33 +4,44 @@ on:
   push:
     branches: [main]
 
+# Permisos necesarios
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Solo un trabajo (no dos)
 jobs:
   build:
-      # Specify runner +  build & upload the static files as an artifact
-      runs-on: ubuntu-latest
-      steps:
-        - name: Build static files
-          id: build
-          run: npm run build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-        - name: Upload static files as artifact
-          id: deployment
-          uses: actions/upload-pages-artifact@v4 # or specific "vX.X.X" version tag for this action
-          with:
-            path: dist/
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Astro
+        run: npm run build
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist  # <--- carpeta que Astro genera por defecto
 
   deploy:
+    needs: build
     runs-on: ubuntu-latest
-    permissions:
-      pages: write      # to deploy to Pages
-      id-token: write   # to verify the deployment originates from an appropriate source
-
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/configure-pages@v5
-      - uses: actions/deploy-pages@v4
-
-      - uses: withastro/action@v4
-        with:
-          deploy_branch: gh-pages
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
