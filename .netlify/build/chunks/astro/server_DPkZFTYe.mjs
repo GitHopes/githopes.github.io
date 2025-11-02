@@ -6,77 +6,6 @@ import 'cssesc';
 
 const ASTRO_VERSION = "5.15.3";
 const NOOP_MIDDLEWARE_HEADER = "X-Astro-Noop";
-const REDIRECT_STATUS_CODES = [301, 302, 303, 307, 308, 300, 304];
-
-function normalizeLF(code) {
-  return code.replace(/\r\n|\r(?!\n)|\n/g, "\n");
-}
-
-function codeFrame(src, loc) {
-  if (!loc || loc.line === void 0 || loc.column === void 0) {
-    return "";
-  }
-  const lines = normalizeLF(src).split("\n").map((ln) => ln.replace(/\t/g, "  "));
-  const visibleLines = [];
-  for (let n = -2; n <= 2; n++) {
-    if (lines[loc.line + n]) visibleLines.push(loc.line + n);
-  }
-  let gutterWidth = 0;
-  for (const lineNo of visibleLines) {
-    let w = `> ${lineNo}`;
-    if (w.length > gutterWidth) gutterWidth = w.length;
-  }
-  let output = "";
-  for (const lineNo of visibleLines) {
-    const isFocusedLine = lineNo === loc.line - 1;
-    output += isFocusedLine ? "> " : "  ";
-    output += `${lineNo + 1} | ${lines[lineNo]}
-`;
-    if (isFocusedLine)
-      output += `${Array.from({ length: gutterWidth }).join(" ")}  | ${Array.from({
-        length: loc.column
-      }).join(" ")}^
-`;
-  }
-  return output;
-}
-
-class AstroError extends Error {
-  loc;
-  title;
-  hint;
-  frame;
-  type = "AstroError";
-  constructor(props, options) {
-    const { name, title, message, stack, location, hint, frame } = props;
-    super(message, options);
-    this.title = title;
-    this.name = name;
-    if (message) this.message = message;
-    this.stack = stack ? stack : this.stack;
-    this.loc = location;
-    this.hint = hint;
-    this.frame = frame;
-  }
-  setLocation(location) {
-    this.loc = location;
-  }
-  setName(name) {
-    this.name = name;
-  }
-  setMessage(message) {
-    this.message = message;
-  }
-  setHint(hint) {
-    this.hint = hint;
-  }
-  setFrame(source, location) {
-    this.frame = codeFrame(source, location);
-  }
-  static is(err) {
-    return err.type === "AstroError";
-  }
-}
 
 const MissingMediaQueryDirective = {
   name: "MissingMediaQueryDirective",
@@ -187,20 +116,76 @@ const RenderUndefinedEntryError = {
   title: "Attempted to render an undefined content collection entry.",
   hint: "Check if the entry is undefined before passing it to `render()`"
 };
-const ActionsReturnedInvalidDataError = {
-  name: "ActionsReturnedInvalidDataError",
-  title: "Action handler returned invalid data.",
-  message: (error) => `Action handler returned invalid data. Handlers should return serializable data types like objects, arrays, strings, and numbers. Parse error: ${error}`,
-  hint: "See the devalue library for all supported types: https://github.com/rich-harris/devalue"
-};
-const ActionNotFoundError = {
-  name: "ActionNotFoundError"};
-const ActionCalledFromServerError = {
-  name: "ActionCalledFromServerError",
-  title: "Action unexpected called from the server.",
-  message: "Action called from a server page or endpoint without using `Astro.callAction()`. This wrapper must be used to call actions from server code.",
-  hint: "See the `Astro.callAction()` reference for usage examples: https://docs.astro.build/en/reference/api-reference/#callaction"
-};
+
+function normalizeLF(code) {
+  return code.replace(/\r\n|\r(?!\n)|\n/g, "\n");
+}
+
+function codeFrame(src, loc) {
+  if (!loc || loc.line === void 0 || loc.column === void 0) {
+    return "";
+  }
+  const lines = normalizeLF(src).split("\n").map((ln) => ln.replace(/\t/g, "  "));
+  const visibleLines = [];
+  for (let n = -2; n <= 2; n++) {
+    if (lines[loc.line + n]) visibleLines.push(loc.line + n);
+  }
+  let gutterWidth = 0;
+  for (const lineNo of visibleLines) {
+    let w = `> ${lineNo}`;
+    if (w.length > gutterWidth) gutterWidth = w.length;
+  }
+  let output = "";
+  for (const lineNo of visibleLines) {
+    const isFocusedLine = lineNo === loc.line - 1;
+    output += isFocusedLine ? "> " : "  ";
+    output += `${lineNo + 1} | ${lines[lineNo]}
+`;
+    if (isFocusedLine)
+      output += `${Array.from({ length: gutterWidth }).join(" ")}  | ${Array.from({
+        length: loc.column
+      }).join(" ")}^
+`;
+  }
+  return output;
+}
+
+class AstroError extends Error {
+  loc;
+  title;
+  hint;
+  frame;
+  type = "AstroError";
+  constructor(props, options) {
+    const { name, title, message, stack, location, hint, frame } = props;
+    super(message, options);
+    this.title = title;
+    this.name = name;
+    if (message) this.message = message;
+    this.stack = stack ? stack : this.stack;
+    this.loc = location;
+    this.hint = hint;
+    this.frame = frame;
+  }
+  setLocation(location) {
+    this.loc = location;
+  }
+  setName(name) {
+    this.name = name;
+  }
+  setMessage(message) {
+    this.message = message;
+  }
+  setHint(hint) {
+    this.hint = hint;
+  }
+  setFrame(source, location) {
+    this.frame = codeFrame(source, location);
+  }
+  static is(err) {
+    return err.type === "AstroError";
+  }
+}
 
 function validateArgs(args) {
   if (args.length !== 3) return false;
@@ -2029,4 +2014,4 @@ function spreadAttributes(values = {}, _name, { class: scopedClassName } = {}) {
   return markHTMLString(output);
 }
 
-export { AstroError as A, FontFamilyNotFound as B, ExpectedImageOptions as E, FailedToFetchRemoteImageDimensions as F, InvalidImageService as I, NOOP_MIDDLEWARE_HEADER as N, RenderUndefinedEntryError as R, UnknownContentCollectionError as U, ActionCalledFromServerError as a, ActionNotFoundError as b, createComponent as c, renderTemplate as d, createAstro as e, addAttribute as f, renderSlot as g, renderUniqueStylesheet as h, renderScriptElement as i, createHeadAndContent as j, renderScript as k, defineScriptVars as l, maybeRenderHead as m, renderHead as n, decodeKey as o, REDIRECT_STATUS_CODES as p, ActionsReturnedInvalidDataError as q, renderComponent as r, NoImageMetadata as s, toStyleString as t, unescapeHTML as u, ExpectedImage as v, ExpectedNotESMImage as w, ImageMissingAlt as x, spreadAttributes as y, ExperimentalFontsNotEnabled as z };
+export { AstroError as A, ExpectedImageOptions as E, FailedToFetchRemoteImageDimensions as F, InvalidImageService as I, NoImageMetadata as N, RenderUndefinedEntryError as R, UnknownContentCollectionError as U, renderTemplate as a, createAstro as b, createComponent as c, addAttribute as d, renderSlot as e, renderUniqueStylesheet as f, renderScriptElement as g, createHeadAndContent as h, ExpectedImage as i, ExpectedNotESMImage as j, ImageMissingAlt as k, ExperimentalFontsNotEnabled as l, maybeRenderHead as m, FontFamilyNotFound as n, renderScript as o, defineScriptVars as p, renderHead as q, renderComponent as r, spreadAttributes as s, toStyleString as t, unescapeHTML as u, NOOP_MIDDLEWARE_HEADER as v, decodeKey as w };

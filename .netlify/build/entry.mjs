@@ -1,38 +1,34 @@
 import { renderers } from './renderers.mjs';
 import { s as serverEntrypointModule } from './chunks/_@astrojs-ssr-adapter_CvSoi7hX.mjs';
-import { manifest } from './manifest_B9m4FXRm.mjs';
+import { manifest } from './manifest_BTCI_Bq5.mjs';
 import { createExports } from '@astrojs/netlify/ssr-function.js';
 
 const serverIslandMap = new Map();;
 
-const _page0 = () => import('./pages/_image.astro.mjs');
-const _page1 = () => import('./pages/_actions/_---path_.astro.mjs');
-const _page2 = () => import('./pages/about.astro.mjs');
-const _page3 = () => import('./pages/blog.astro.mjs');
-const _page4 = () => import('./pages/blog/_---slug_.astro.mjs');
-const _page5 = () => import('./pages/contact.astro.mjs');
-const _page6 = () => import('./pages/projects.astro.mjs');
-const _page7 = () => import('./pages/index.astro.mjs');
+const _page0 = () => import('./pages/about.astro.mjs');
+const _page1 = () => import('./pages/blog.astro.mjs');
+const _page2 = () => import('./pages/blog/_---slug_.astro.mjs');
+const _page3 = () => import('./pages/contact.astro.mjs');
+const _page4 = () => import('./pages/projects.astro.mjs');
+const _page5 = () => import('./pages/index.astro.mjs');
 const pageMap = new Map([
-    ["node_modules/astro/dist/assets/endpoint/generic.js", _page0],
-    ["node_modules/astro/dist/actions/runtime/route.js", _page1],
-    ["src/pages/about.astro", _page2],
-    ["src/pages/blog/index.astro", _page3],
-    ["src/pages/blog/[...slug].astro", _page4],
-    ["src/pages/contact.astro", _page5],
-    ["src/pages/projects.astro", _page6],
-    ["src/pages/index.astro", _page7]
+    ["src/pages/about.astro", _page0],
+    ["src/pages/blog/index.astro", _page1],
+    ["src/pages/blog/[...slug].astro", _page2],
+    ["src/pages/contact.astro", _page3],
+    ["src/pages/projects.astro", _page4],
+    ["src/pages/index.astro", _page5]
 ]);
 
 const _manifest = Object.assign(manifest, {
     pageMap,
     serverIslandMap,
     renderers,
-    actions: () => import('./entrypoint.mjs'),
+    actions: () => import('./noop-entrypoint.mjs'),
     middleware: () => import('./_noop-middleware.mjs')
 });
 const _args = {
-    "middlewareSecret": "e1d8728e-29ee-4a4c-94a5-5ab980534e2b"
+    "middlewareSecret": "45cd9e61-3826-4397-8e67-24d39a89ea01"
 };
 const _exports = createExports(_manifest, _args);
 const __astrojsSsrVirtualEntry = _exports.default;
