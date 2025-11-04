@@ -1,32 +1,37 @@
 ---
 isDraft: false
-title: AI adoption is a UX problem
-snippet: We have plenty of intelligence. The problem is making it usable
+title: ¿Qué es el proceso de negociación DORA?
+snippet: El significado del nombre de cada proceso en la negociación de DHCP
 slug: ai-adoption-is-a-ux-problem
-author: Nan Yu
+author: Franco Leon
 category: AI
 readingDuration: 1
-pubDate: 2025 4 10
+pubDate: 2025 11 4
 coverAlt: Tobi Lutke - Shopify CEO - I heard this internal memo of mine is being leaked right now, so here it is
 originalLink: https://thenanyu.com/ux.html
 cover: https://pbs.twimg.com/media/Gn7z7RcbEAAr118?format=jpg&name=medium
 ---
 
-# AI adoption is a UX problem
+# ¿Qué es el proceso de negociación DORA?
 > We have plenty of intelligence. The problem is making it usable
 
-Toby Lütke, CEO of Shopify, just made the rounds on Twitter with an internal memo that he sent to his company. In it, he basically tells all of his employees that the time to mass adopt AI in their business is now. No matter which job or role you're in, you need to be using AI all the time, every day, or risk damaging your performance review. If you haven't seen it, read it for yourself here:
+El proceso de negociación DORA DHCP es un proceso de 4 pasos de red que permiten a los servidores DHCP asignar dinámicamente IP y otros párametros de configuración de la red a los dispositivos que lo soliciten sin intervención manual.
 
 
-![Tobi Lutke - Shopify CEO - I heard this internal memo of mine is being leaked right now, so here it is]( https://pbs.twimg.com/media/Gn7z7RcbEAAr118?format=jpg&name=medium)
+![Tobi Lutke - Shopify CEO - I heard this internal memo of mine is being leaked right now, so here it is]( https://www.manageengine.com/products/oputils/images/dhcp-process.jpg)
 
-This echoes what I've heard from other CEOs in and around tech — they recognize the usefulness and productivity gains on offer from AI tools like ChatGPT and Claude. But for some reason, that isn't enough for their employees to actually adopt them at scale. They have to be threatened with bad reviews.
+# ¿Cuáles son los pasos, y que significado traen cada uno?
 
-The AI tools that seem to spread by themselves within workforces are things like Cursor for interactive coding and Granola for automated note-taking. These tools are casually dismissed as "GPT wrappers" by some industry commentators — after all, ChatGPT (or Sonnet or Gemini or Llama or Deepseek) is doing all the "real work", right?
+## Discover - Mensaje de detección de DHCP.
+Los clientes DHCP después de haber activado el servicio de DHCP mandan un mensaje de difusión buscando un servidor de DHCP en toda la red. Como el cliente DHCP no tiene ip manda un mensaje con la ip 0.0.0.0 y como no conoce la ip del servidor busca la dirección 255.255.255.255, estas ip son conocidas como direcciones de difusión.
+## Offer - Mensaje de oferta DHCP.
+El servidor de DHCP recibe el mensaje de detección y envía una oferta de DHCP a la dirección ip 255.255.255.255 porque todavía el cliente no tiene asignado una dirección ip, en el contenido de la oferta de DHCP esta información como la dirección IP y el tiempo que tiene permitido usar el host.
+## Request - Mensaje de solicitud DHCP.
+El cliente manda una solicitud de mensaje al servidor DHCP que realizó la oferta, confirmando la aceptación de la IP ofrecida. Si recibió múltiples ofertas acepta al primer DHCP server en llegar.
+## ACK - Mensaje de reconocimiento de DHCP.
+El servidor envía un mensaje de confirmación al cliente para confirmar el mensaje de solicitud y le envía un mensaje de reconocimiento conteniendo la dirección ip asignada y la máscara de subred que le asigna. La dirección de origen será la dirección ip del servidor DHCP mientras que la de destino será 255.255.255.255 en la capa de red, sin embargo en la capa de enlace la dirección de destino será la ip del cliente.
 
-People who take this perspective seem to be throwing away all the lessons we've learned about software distribution. It's like they saw Instagram and waived it off as an "ImageMagick wrapper"... or Dropbox as an "rsync wrapper".
-
-Those products won because they made powerful, highly technical tools accessible through thoughtful design. The biggest barrier to mass AI adoption is not capability or intelligence; we have those in spades. <strong> It's UX. </strong>
+hose in spades. <strong> It's UX. </strong>
 
 
 
