@@ -18,7 +18,7 @@ cover: https://www.manageengine.com/products/oputils/images/dhcp-process.jpg
 El proceso de negociación DORA DHCP es un proceso de 4 pasos de red que permiten a los servidores DHCP asignar dinámicamente IP y otros párametros de configuración de la red a los dispositivos que lo soliciten sin intervención manual.
 
 
-<img src="https://www.manageengine.com/products/oputils/images/dhcp-process.jpg" width="200" height="200"/>
+<img src="https://www.manageengine.com/products/oputils/images/dhcp-process.jpg" width="600" height="300"/>
 
 # ¿Cuáles son los pasos, y que significado traen cada uno?
 
