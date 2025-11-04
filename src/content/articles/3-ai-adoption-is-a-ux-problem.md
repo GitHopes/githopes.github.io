@@ -2,23 +2,23 @@
 isDraft: false
 title: ¿Qué es el proceso de negociación DORA?
 snippet: El significado del nombre de cada proceso en la negociación de DHCP
-slug: ai-adoption-is-a-ux-problem
+slug: dora-dhcp
 author: Franco Leon
 category: AI
-readingDuration: 1
+readingDuration: 2
 pubDate: 2025 11 4
 coverAlt: Tobi Lutke - Shopify CEO - I heard this internal memo of mine is being leaked right now, so here it is
 originalLink: https://thenanyu.com/ux.html
-cover: https://pbs.twimg.com/media/Gn7z7RcbEAAr118?format=jpg&name=medium
+cover: https://www.manageengine.com/products/oputils/images/dhcp-process.jpg
 ---
 
 # ¿Qué es el proceso de negociación DORA?
-> We have plenty of intelligence. The problem is making it usable
+> El protocolo DHCP es uno de los más utilizados por los routers, tanto domésticos como también profesionales.
 
 El proceso de negociación DORA DHCP es un proceso de 4 pasos de red que permiten a los servidores DHCP asignar dinámicamente IP y otros párametros de configuración de la red a los dispositivos que lo soliciten sin intervención manual.
 
 
-![Tobi Lutke - Shopify CEO - I heard this internal memo of mine is being leaked right now, so here it is]( https://www.manageengine.com/products/oputils/images/dhcp-process.jpg)
+<img src="https://www.manageengine.com/products/oputils/images/dhcp-process.jpg" width="200" height="200"/>
 
 # ¿Cuáles son los pasos, y que significado traen cada uno?
 
@@ -30,8 +30,3 @@ El servidor de DHCP recibe el mensaje de detección y envía una oferta de DHCP 
 El cliente manda una solicitud de mensaje al servidor DHCP que realizó la oferta, confirmando la aceptación de la IP ofrecida. Si recibió múltiples ofertas acepta al primer DHCP server en llegar.
 ## ACK - Mensaje de reconocimiento de DHCP.
 El servidor envía un mensaje de confirmación al cliente para confirmar el mensaje de solicitud y le envía un mensaje de reconocimiento conteniendo la dirección ip asignada y la máscara de subred que le asigna. La dirección de origen será la dirección ip del servidor DHCP mientras que la de destino será 255.255.255.255 en la capa de red, sin embargo en la capa de enlace la dirección de destino será la ip del cliente.
-
-hose in spades. <strong> It's UX. </strong>
-
-
-
